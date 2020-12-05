@@ -49,46 +49,10 @@ application {
     getMainClass().set("com.selesy.nqueens.App") // Required in Gradle 8.0
     mainClassName = getMainClass().get() // TODO: deprecated but currently required for shadow
     // Java records are a preview feature in Java 14 (execution)
-    applicationDefaultJvmArgs = listOf("--enable-preview","-Dspring.output.ansi.enabled=always")
+    applicationDefaultJvmArgs = listOf("--enable-preview")
 }
 
 tasks.test {
     // Use junit platform for unit tests.
     useJUnitPlatform()
 }
-
-// task runApp(type: JavaExec) {
-//     standardInput = System.in
-//     standardOutput = System.out
-// }
-
-// 
-// shadow {
-//     mainClassName = "com.selesy.nqueens.App"
-//     // mainClassName.set("com.selesy.nqueens.App")
-// }
-
-// shadowJar {
-//     manifest {
-//         attributes 'Main-Class': mainClassName
-//     }
-// }
-
-// tasks.withType<ShadowJar> {
-//     manifest {
-//         attributes(mapOf(
-//                 "Main-Class" to "test.ApplicationKt"
-//         ))
-//     }
-// }
-
-// tasks.withType<Jar> {
-//     manifest {
-//         // mainClassName("com.selesy.nqueens.App")
-//         attributes["Main-Class"] = "com.selesy.nqueens.App"
-//     }
-// }
-
-// tasks.withType<ShadowJar> {
-//     mainClassName(application.mainClass)
-// }
