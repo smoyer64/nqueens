@@ -10,6 +10,11 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
     java
+    // Allows classpath generation (from dependencies) for Eclipse and VS Code
+    eclipse
+    // Boiler-plate generation
+    id("io.freefair.lombok") version "5.3.0"
+    // Creates a jar with dependencies (uber/shade/etc)
     id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
@@ -17,15 +22,8 @@ java {
     sourceCompatibility = JavaVersion.VERSION_14
 }
 
-tasks.withType<JavaCompile> {
-    // Java records are a preview feature in Java 14 (compile)
-    options.compilerArgs.add("--enable-preview")
-}
-
 tasks.test {
     useJUnitPlatform()
-    // Java records are a preview feature in Java 14 (test)
-    jvmArgs("--enable-preview")
 }
 
 repositories {
@@ -40,19 +38,13 @@ dependencies {
     // Use JUnit Jupiter Engine for testing.
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
-    // This dependency is used by the application.
+    // These dependencies is used by the application.
+    implementation("org.projectlombok:lombok:1.18.16")
     implementation("org.fusesource.jansi:jansi:2.0.1")
 }
 
 application {
     // Define the main class for the application.
     getMainClass().set("com.selesy.nqueens.App") // Required in Gradle 8.0
-    mainClassName = getMainClass().get() // TODO: deprecated but currently required for shadow
-    // Java records are a preview feature in Java 14 (execution)
-    applicationDefaultJvmArgs = listOf("--enable-preview")
-}
-
-tasks.test {
-    // Use junit platform for unit tests.
-    useJUnitPlatform()
+    mainClassName = "com.selesy.nqueens.App" // Deprecated in Gradle but required for Shadow
 }
