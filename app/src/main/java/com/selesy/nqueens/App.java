@@ -3,9 +3,10 @@
  */
 package com.selesy.nqueens;
 
-import org.fusesource.jansi.AnsiConsole;
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
+
+import org.fusesource.jansi.AnsiConsole;
 
 public class App {
     public String getGreeting() {
