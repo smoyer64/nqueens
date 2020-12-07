@@ -8,6 +8,8 @@ import lombok.Data;
  * type to and from it's String representation. On a standard 8x8 chess board,
  * 0,0 is the integer coordinates of the lower-left square named "a1". Likewise,
  * the coordinates 7,7 correspond to the upper-right square named "h8".
+ * 
+ * @see https://www.chess.com/article/view/chess-notation
  */
 @Data
 public class Square {
