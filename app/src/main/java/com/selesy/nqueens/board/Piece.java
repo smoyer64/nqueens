@@ -13,12 +13,12 @@ package com.selesy.nqueens.board;
  * @see https://www.chess.com/article/view/chess-notation
  */
 public enum Piece {
-    KING('K', "King", false, 0), // value is a place-holder only
-    QUEEN('Q', "Queen", false, 9),
-    ROOK('R', "Rook", false, 5),
-    BISHOP('B', "Bishop", false, 5),
-    KNIGHT('N', "Knight", false, 3),
-    PAWN('P', "Pawn", true, 1);
+    KING('K', "King", true, 0), // value is a place-holder only
+    QUEEN('Q', "Queen", true, 9),
+    ROOK('R', "Rook", true, 5),
+    BISHOP('B', "Bishop", true, 5),
+    KNIGHT('N', "Knight", true, 3),
+    PAWN('P', "Pawn", false, 1);
 
     char abbrev;
     String name;
