@@ -16,6 +16,8 @@ plugins {
     id("io.freefair.lombok") version "5.3.0"
     // Creates a jar with dependencies (uber/shade/etc)
     id("com.github.johnrengelman.shadow") version "6.1.0"
+    // Add linter/formatter
+	id("com.diffplug.spotless") version "5.6.1"
 }
 
 java {
