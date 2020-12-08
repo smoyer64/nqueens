@@ -10,6 +10,7 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
     java
+    jacoco
     // Allows classpath generation (from dependencies) for Eclipse and VS Code
     eclipse
     // Boiler-plate generation
