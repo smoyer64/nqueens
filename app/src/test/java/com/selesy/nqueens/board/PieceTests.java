@@ -10,19 +10,18 @@ import org.junit.jupiter.api.Test;
 @DisplayName("Piece.java")
 public class PieceTests {
 
-
     /*
-    * Verifies that the private constructor and accessors are wired
-    * up correctly.
-    */
+     * Verifies that the private constructor and accessors are wired up correctly.
+     */
     @Test
     void testConstructorAndAccessors() {
         assertEquals("Rook", Piece.ROOK.getName());
         assertEquals('R', Piece.ROOK.getAbbreviation());
-        assertEquals(5, Piece.ROOK.value);
+        assertEquals('\u265c', Piece.ROOK.getSymbol(Color.BLACK));
+        assertEquals(5, Piece.ROOK.getValue());
         assertTrue(Piece.ROOK.isDisplayed());
 
         assertFalse(Piece.PAWN.isDisplayed());
     }
-    
+
 }
