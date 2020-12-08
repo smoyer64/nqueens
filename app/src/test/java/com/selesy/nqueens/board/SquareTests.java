@@ -33,6 +33,7 @@ public class SquareTests {
             "a-1, 0", // rank is too low
             "a27, 0", // rank is too high
             "abc, 1", // rank is not a number
+            "a, 1", // notation is too short
     })
     void testFromStringAndConstructorFailures(String notation, int failure) {
         Exception e = assertThrows(IllegalArgumentException.class, () -> Square.fromString(notation));
@@ -47,7 +48,7 @@ public class SquareTests {
      */
     @DisplayName("Success")
     @ParameterizedTest
-    @CsvSource({ "0, 0, a1", "0, 7, a8","7, 0, h1", "7, 7, h8", "25, 25, z26" })
+    @CsvSource({ "0, 0, a1", "0, 7, a8", "7, 0, h1", "7, 7, h8", "25, 25, z26" })
     void testFromStringAndToString(int file, int rank, String notation) {
         Square s = Square.fromString(notation);
         assertEquals(file, s.getFile());
