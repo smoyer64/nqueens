@@ -47,7 +47,7 @@ public class Square {
      *                                      the range 0-25 inclusive.
      */
     public Square(int file, int rank) throws IllegalArgumentException {
-        if (file < 0 || file >= Board.MAX_DIMENSIONS || rank < 0 || rank >= Board.MAX_DIMENSIONS) {
+        if (file < 0 || file >= BaseBoard.MAX_DIMENSIONS || rank < 0 || rank >= BaseBoard.MAX_DIMENSIONS) {
             StringBuilder sb = new StringBuilder();
             sb.append(MESSAGE_FILE_RANK_INDEX);
             sb.append(" - File: ");
