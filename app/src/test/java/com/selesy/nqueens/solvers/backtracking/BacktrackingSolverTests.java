@@ -49,6 +49,7 @@ public class BacktrackingSolverTests {
         for (String position : positions.split(",")) {
             pieces.add(Square.fromString(position));
         }
+
         return pieces;
     }
 }
