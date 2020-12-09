@@ -13,7 +13,6 @@ public class BacktrackingSolver implements Solver {
 
     public BacktrackingSolver(int size) {
         board = new NQueensBoard(size);
-        // System.out.println("Board size: " + board.size());
     }
 
     public Optional<List<Square>> solve() {
@@ -23,14 +22,10 @@ public class BacktrackingSolver implements Solver {
         do {
             Square s = new Square(file, rank);
 
-            // System.out.print("Square: " + s);
-
             // if there's a valid square in this file, fill it and start
             // at rank 0 on the next file
             if (board.isValid(s)) {
                 board.putDown(s);
-
-                // System.out.println(", Queens: " + board.queens);
 
                 // if there's a queen in each file then we're done
                 if (board.getQueens()
@@ -43,8 +38,6 @@ public class BacktrackingSolver implements Solver {
                 rank = 0;
                 continue;
             }
-
-            // System.out.println(", Violations: " + board.violations(s));
 
             // try the next square (forward)
             rank++;
@@ -60,8 +53,6 @@ public class BacktrackingSolver implements Solver {
             // zero (a) and the rank will be equal to the size of the
             // board so no additional positions are possible.
         } while (rank < board.size());
-
-        // System.out.println("----------------------------------------");
 
         return Optional.of(board.getQueens())
                        .map(o -> o.size() == 0 ? null : o);
