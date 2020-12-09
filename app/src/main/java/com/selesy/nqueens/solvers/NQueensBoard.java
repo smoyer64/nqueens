@@ -7,10 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.selesy.nqueens.board.BaseBoard;
 import com.selesy.nqueens.board.Board;
 import com.selesy.nqueens.board.Square;
 
 public class NQueensBoard implements Board {
+
+    public static String MESSAGE_ILLEGAL_BOARD_SIZE = "Illegal board size requested (0-" + BaseBoard.MAX_DIMENSIONS + ")";
 
     // Dimensions of this chessboard.
     int size;
@@ -22,7 +25,11 @@ public class NQueensBoard implements Board {
     // queens may not be in a straight line (Rule.TRIPLET).
     Set<Square> blocked = new HashSet<>();
 
-    public NQueensBoard(int size) {
+    public NQueensBoard(int size) throws IllegalArgumentException {
+        if (size < 1 || size > BaseBoard.MAX_DIMENSIONS) {
+            throw new IllegalArgumentException(String.format(MESSAGE_ILLEGAL_BOARD_SIZE + " - got: %d", BaseBoard.MAX_DIMENSIONS, size));
+        }
+
         this.size = size;
     }
 

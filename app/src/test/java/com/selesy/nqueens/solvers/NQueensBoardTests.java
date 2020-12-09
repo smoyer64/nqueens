@@ -2,6 +2,8 @@ package com.selesy.nqueens.solvers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +13,22 @@ import com.selesy.nqueens.board.Square;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 @DisplayName("NQueensBoard")
 public class NQueensBoardTests {
+
+    @DisplayName("NQueensBoard(Int) - Illegal board size")
+    @ParameterizedTest(name = "{index} - Board size: {0}")
+    @ValueSource(ints = { 0, 27 })
+    void testConstructorWithIllegalBoardSize(int size) {
+        Exception e = assertThrows(IllegalArgumentException.class, () -> {
+            new NQueensBoard(size);
+        });
+
+        assertTrue(e.getMessage()
+                    .startsWith(NQueensBoard.MESSAGE_ILLEGAL_BOARD_SIZE));
+    }
 
     @DisplayName("IsValid()")
     @ParameterizedTest(name = "{index} - Queen positions: {0}")
