@@ -7,14 +7,30 @@ import com.selesy.nqueens.board.Square;
 import com.selesy.nqueens.solvers.NQueensBoard;
 import com.selesy.nqueens.solvers.Solver;
 
+/**
+ * Provides an Solver implementation that uses backtracking to avoid getting
+ * "trapped in corners".
+ */
 public class BacktrackingSolver implements Solver {
 
     NQueensBoard board;
 
+    /**
+     * Constructs a BacktrackingSolver with a chessboard size x size dimensions and
+     * that attempts to place "size" queens.
+     * 
+     * @param size
+     *                 the dimensions of the chessboard and target number of queens.
+     */
     public BacktrackingSolver(int size) {
         board = new NQueensBoard(size);
     }
 
+    /**
+     * Attempts to find a solution to the modified N-Queens puzzle.
+     * 
+     * @return an Optional containing the solution if one is found.
+     */
     public Optional<List<Square>> solve() {
         char file = 0;
         int rank = 0;
