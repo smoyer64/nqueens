@@ -79,6 +79,11 @@ public class NQueensBoard implements Board {
         return b;
     }
 
+    public void clear() {
+        queens.clear();
+        blocked.clear();
+    }
+
     public List<Square> getQueens() {
         return queens;
     }
@@ -93,6 +98,28 @@ public class NQueensBoard implements Board {
 
     public boolean isValid() {
         return violations().size() == 0;
+    }
+
+    public void load(List<Square> squares) {
+        for (Square square : squares) {
+            putDown(square);
+        }
+    }
+
+    public void load(String positions) {
+        if (positions == null || positions.isEmpty()) {
+            clear();
+            return;
+        }
+
+        List<Square> squares = new ArrayList<>();
+
+        positions = positions.replaceAll(" ", "");
+        for (String position : positions.split(",")) {
+            squares.add(Square.fromString(position));
+        }
+
+        load(squares);
     }
 
     public Square pickUp() {

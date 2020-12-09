@@ -2,10 +2,10 @@ package com.selesy.nqueens.solvers.backtracking;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.selesy.nqueens.board.Square;
+import com.selesy.nqueens.solvers.NQueensBoard;
 import com.selesy.nqueens.solvers.Solver;
 
 import org.junit.jupiter.api.DisplayName;
@@ -32,24 +32,12 @@ public class BacktrackingSolverTests {
     // @formatter:on
     })
     void testSolve(int size, String positions) {
+        NQueensBoard board = new NQueensBoard(size);
+        board.load(positions);
+        List<Square> exp = board.getQueens();
+
         Solver solver = new BacktrackingSolver(size);
-        List<Square> exp = expectedPieces(positions);
         assertEquals(exp, solver.solve()
                                 .get());
-    }
-
-    List<Square> expectedPieces(String positions) {
-        List<Square> pieces = new ArrayList<>();
-
-        if (positions.isBlank()) {
-            return pieces;
-        }
-
-        positions = positions.replaceAll(" ", "");
-        for (String position : positions.split(",")) {
-            pieces.add(Square.fromString(position));
-        }
-
-        return pieces;
     }
 }
