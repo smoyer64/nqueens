@@ -63,7 +63,8 @@ public class BacktrackingSolver implements Solver {
 
         // System.out.println("----------------------------------------");
 
-        return Optional.of(board.getQueens());
+        return Optional.of(board.getQueens())
+                       .map(o -> o.size() == 0 ? null : o);
     }
 
     /**
