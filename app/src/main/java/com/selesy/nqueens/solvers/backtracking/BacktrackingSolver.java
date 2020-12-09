@@ -4,14 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import com.selesy.nqueens.board.Square;
+import com.selesy.nqueens.solvers.NQueensBoard;
 import com.selesy.nqueens.solvers.Solver;
 
 public class BacktrackingSolver implements Solver {
 
-    BacktrackingBoard board;
+    NQueensBoard board;
 
     public BacktrackingSolver(int size) {
-        board = new BacktrackingBoard(size);
+        board = new NQueensBoard(size);
         // System.out.println("Board size: " + board.size());
     }
 

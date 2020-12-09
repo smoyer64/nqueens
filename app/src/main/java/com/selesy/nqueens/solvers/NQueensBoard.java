@@ -1,4 +1,4 @@
-package com.selesy.nqueens.solvers.backtracking;
+package com.selesy.nqueens.solvers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,10 +9,8 @@ import java.util.Set;
 
 import com.selesy.nqueens.board.Board;
 import com.selesy.nqueens.board.Square;
-import com.selesy.nqueens.solvers.Rule;
-import com.selesy.nqueens.solvers.Violation;
 
-public class BacktrackingBoard implements Board {
+public class NQueensBoard implements Board {
 
     // Dimensions of this chessboard.
     int size;
@@ -24,7 +22,7 @@ public class BacktrackingBoard implements Board {
     // queens may not be in a straight line (Rule.TRIPLET).
     Set<Square> blocked = new HashSet<>();
 
-    public BacktrackingBoard(int size) {
+    public NQueensBoard(int size) {
         this.size = size;
     }
 
