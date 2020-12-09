@@ -8,7 +8,10 @@ import java.util.stream.IntStream;
 import com.selesy.nqueens.solvers.Solver;
 import com.selesy.nqueens.solvers.backtracking.BacktrackingSolver;
 
-public class App {
+/**
+ * Entry point for the N-Queens application.
+ */
+public class App { // TODO: add argument parsing to provide help and solver choice/configuration
 
     public static void main(String[] args) {
         // AnsiConsole.systemInstall();
@@ -19,9 +22,13 @@ public class App {
     }
 
     void run() {
-        IntStream.range(1, 27)
+        // Print solutions to the first 18 N-Queens puzzles
+        IntStream.range(1, 19)
                  .mapToObj(this::solve)
                  .forEach(System.out::println);
+
+        // Start up the unfinished genetic solver
+        // (new GeneticSolver(8)).solve();
     }
 
     String solve(int size) {
