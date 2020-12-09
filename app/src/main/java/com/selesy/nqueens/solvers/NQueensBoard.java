@@ -13,7 +13,7 @@ import com.selesy.nqueens.board.Square;
 
 public class NQueensBoard implements Board {
 
-    public static String MESSAGE_ILLEGAL_BOARD_SIZE = "Illegal board size requested (0-" + BaseBoard.MAX_DIMENSIONS + ")";
+    public static String MESSAGE_ILLEGAL_BOARD_SIZE = "Illegal board size requested (" + BaseBoard.MIN_DIMENSIONS + "-" + BaseBoard.MAX_DIMENSIONS + ")";
 
     // Dimensions of this chessboard.
     int size;
@@ -26,7 +26,7 @@ public class NQueensBoard implements Board {
     Set<Square> blocked = new HashSet<>();
 
     public NQueensBoard(int size) throws IllegalArgumentException {
-        if (size < 1 || size > BaseBoard.MAX_DIMENSIONS) {
+        if (size < BaseBoard.MIN_DIMENSIONS || size > BaseBoard.MAX_DIMENSIONS) {
             throw new IllegalArgumentException(String.format(MESSAGE_ILLEGAL_BOARD_SIZE + " - got: %d", BaseBoard.MAX_DIMENSIONS, size));
         }
 
