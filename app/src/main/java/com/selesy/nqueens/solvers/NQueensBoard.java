@@ -9,7 +9,12 @@ import java.util.Set;
 
 import com.selesy.nqueens.board.BaseBoard;
 import com.selesy.nqueens.board.Board;
+import com.selesy.nqueens.board.Color;
+import com.selesy.nqueens.board.Piece;
 import com.selesy.nqueens.board.Square;
+
+import static org.fusesource.jansi.Ansi.*;
+import static org.fusesource.jansi.Ansi.Color.*;
 
 public class NQueensBoard implements Board {
 
@@ -187,5 +192,59 @@ public class NQueensBoard implements Board {
             violations.put(q, violations(q));
         }
         return violations;
+    }
+
+    /**
+     * Returns a diagram of the chessboard shaded using ANSI characters
+     */
+    public String toString() {
+        // Map the files using rank as a key
+        Map<Integer, Integer> qs = new HashMap<>();
+        for (Square q : queens) {
+            qs.put(q.getRank(), q.getFile());
+        }
+
+        // Determine whether the board needs flipped to end up with a
+        // white square on the lower right corner.
+        int flip = queens.size() % 2;
+        // Get the unicode value for a black queen.
+        char sym = Piece.QUEEN.getSymbol(Color.BLACK);
+
+        StringBuilder sb = new StringBuilder();
+        for (int r = queens.size() - 1; r >= 0; r--) {
+
+            // put the rank to the left of each row
+            sb.append(String.format("%2d ", r + 1));
+            for (int f = 0; f < queens.size(); f++) {
+
+                // out is either a queen or space
+                String out = "   ";
+                if (qs.get(r) == f) {
+                    out = " " + sym + " ";
+                }
+
+                // Set up the correct background
+                if (((f + r + flip) % 2) == 0) {
+                    sb.append(ansi().bg(BLACK));
+                } else {
+                    sb.append(ansi().bgBright(BLACK));
+                }
+
+                // Write the square
+                sb.append(ansi().fg(WHITE)
+                                .a(out));
+            }
+            sb.append(ansi().reset()
+                            .a("\n"));
+        }
+
+        // puts the file under each column
+        sb.append("   ");
+        for (int f = 0; f < queens.size(); f++) {
+            sb.append(String.format(" %c ", (char) (f + (int) 'a')));
+        }
+        sb.append("\n");
+
+        return sb.toString();
     }
 }

@@ -3,10 +3,15 @@
  */
 package com.selesy.nqueens;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
+import com.selesy.nqueens.board.Square;
+import com.selesy.nqueens.solvers.NQueensBoard;
 import com.selesy.nqueens.solvers.Solver;
 import com.selesy.nqueens.solvers.backtracking.BacktrackingSolver;
+
+import org.fusesource.jansi.AnsiConsole;
 
 /**
  * Entry point for the N-Queens application.
@@ -14,14 +19,12 @@ import com.selesy.nqueens.solvers.backtracking.BacktrackingSolver;
 public class App { // TODO: add argument parsing to provide help and solver choice/configuration
 
     public static void main(String[] args) {
-        // AnsiConsole.systemInstall();
-        // System.out.println(ansi().fg(RED).bg(WHITE).a(new
-        // App().getGreeting()).reset());
-        // AnsiConsole.systemUninstall();
         (new App()).run();
     }
 
     void run() {
+        AnsiConsole.systemInstall();
+
         // Print solutions to the first 18 N-Queens puzzles
         IntStream.range(1, 19)
                  .mapToObj(this::solve)
@@ -29,12 +32,24 @@ public class App { // TODO: add argument parsing to provide help and solver choi
 
         // Start up the unfinished genetic solver
         // (new GeneticSolver(8)).solve();
+
+        AnsiConsole.systemUninstall();
     }
 
     String solve(int size) {
+        System.out.printf("%5s - ", String.format("%dx%d", size, size));
         Solver solver = new BacktrackingSolver(size);
         return solver.solve()
-                     .map(s -> String.format("%2d - %s", size, s.toString()))
-                     .orElse(String.format("%2d - No solution", size));
+                     .map(q -> showSolution(size, q))
+                     .orElse("No solution\n");
+    }
+
+    String showSolution(int size, List<Square> queens) {
+        NQueensBoard board = new NQueensBoard(size);
+        board.load(queens);
+        return (new StringBuilder()).append(queens)
+                                    .append("\n")
+                                    .append(board)
+                                    .toString();
     }
 }
