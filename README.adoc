@@ -36,6 +36,11 @@ commands (after building the project):
 java -jar app/build/libs/app-all.jar
 ----
 
+Output is displayed for each puzzle size from 1 to 18.  The image below
+provides an example of the display for the 9x9 puzzle.
+
+image:output-9x9.png[9x9 Example Output]
+
 Note that running the program using Gradle has the unfortunate side-effect
 of filtering out ANSI control characters.
 
