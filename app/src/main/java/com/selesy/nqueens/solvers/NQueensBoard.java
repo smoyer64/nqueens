@@ -16,6 +16,11 @@ import com.selesy.nqueens.board.Square;
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
+/**
+ * Provides an implementation of a chessboard that tuned for the N-Queens
+ * solvers. It only stores queens but when each is placed, a list of blocked
+ * squares is calculated to ensure "3-in-a-row" violations can be found easily.
+ */
 public class NQueensBoard implements Board {
 
     public static String MESSAGE_ILLEGAL_BOARD_SIZE = "Illegal board size requested (" + BaseBoard.MIN_DIMENSIONS + "-" + BaseBoard.MAX_DIMENSIONS + ")";
@@ -84,33 +89,72 @@ public class NQueensBoard implements Board {
         return b;
     }
 
+    /**
+     * Clears the queens from the chessboard as well as clearing the array of
+     * squares blocked by the "3-in-a-row" rule.
+     */
     public void clear() {
         queens.clear();
         blocked.clear();
     }
 
+    /**
+     * Returns the list of queens currently placed on the chessboard.
+     * 
+     * @return the queens.
+     */
     public List<Square> getQueens() {
         return queens;
     }
 
+    /**
+     * Given a file and a rank, returns a boolean indicating whether a queen can be
+     * placed at that position without violating a rule.
+     * 
+     * @param file
+     *                 the file.
+     * @param rank
+     *                 the rank.
+     * @return true if valid, otherwise false.
+     */
     public boolean isValid(char file, int rank) {
         return violations(file, rank).size() == 0;
     }
 
+    /**
+     * Given a Square, returns a boolean indicating whether a queen can be placed at
+     * that position without violating a rule.
+     * 
+     * @return true if valid, otherwise false.
+     */
     public boolean isValid(Square queen) {
         return violations(queen).size() == 0;
     }
 
+    /**
+     * Indicates whether the queens currently placed on the chessboard violate any
+     * of the rules.
+     * 
+     * @return true if valid, otherwise false.
+     */
     public boolean isValid() {
         return violations().size() == 0;
     }
 
+    /**
+     * Places each of the queens whose positions are represented by the provided
+     * squares onto the board.
+     */
     public void load(List<Square> squares) {
         for (Square square : squares) {
             putDown(square);
         }
     }
 
+    /**
+     * Parse a comma-separated list of the queens' positions from algebraic notation
+     * and places them each on the chessboard.
+     */
     public void load(String positions) {
         if (positions == null || positions.isEmpty()) {
             clear();
@@ -127,30 +171,66 @@ public class NQueensBoard implements Board {
         load(squares);
     }
 
+    /**
+     * Removes the last queen placed on the board from its position and returns it
+     * to the caller.
+     * 
+     * @return the Square.
+     */
     public Square pickUp() {
         Square q = queens.remove(queens.size() - 1);
         pickUp(q);
         return q;
     }
 
+    /**
+     * Removes the queen matching the passed Square from the chessboard.
+     */
     public void pickUp(Square queen) {
         queens.remove(queen);
         blocked = blocked();
     }
 
+    /**
+     * Places the queen represented by the Square's position on the chessboard and
+     * recalculates the blocked positions.
+     */
     public void putDown(Square queen) {
         queens.add(queen);
         blocked = blocked();
     }
 
+    /**
+     * Returns the dimensions of the chessboard.
+     * 
+     * @return the dimensions.
+     */
     public int size() {
         return size;
     }
 
+    /**
+     * Given a position on the chessboard as a file/rank pair, returns a list of
+     * violations for that position.
+     * 
+     * @param file
+     *                 the file (column).
+     * @param rank
+     *                 the rank (row).
+     * @return a list of violations.
+     */
     public List<Violation> violations(char file, int rank) {
         return violations(new Square(file, rank));
     }
 
+    /**
+     * Given a position on the chessboard as a Square, returns a list of violations
+     * for that position.
+     * 
+     * @param queen
+     *                  the queen's position.
+     * @return a list of violations.
+     */
     public List<Violation> violations(Square queen) {
         List<Violation> violations = new ArrayList<>();
         for (Square q : queens) {
@@ -186,6 +266,12 @@ public class NQueensBoard implements Board {
         return violations;
     }
 
+    /**
+     * Returns a map containing a list of the violations for each and every square
+     * on the chessboard.
+     * 
+     * @return the violations.
+     */
     public Map<Square, List<Violation>> violations() {
         Map<Square, List<Violation>> violations = new HashMap<>();
         for (Square q : queens) {
