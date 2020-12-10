@@ -2,6 +2,7 @@ package com.selesy.nqueens.solvers.backtracking;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.selesy.nqueens.board.Square;
@@ -38,6 +39,6 @@ public class BacktrackingSolverTests {
 
         Solver solver = new BacktrackingSolver(size);
         assertEquals(exp, solver.solve()
-                                .get());
+                                .orElse(new ArrayList<Square>()));
     }
 }
